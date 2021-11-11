@@ -3,7 +3,7 @@ package oop.exams.generator;
 public class DefaultLicensePlateGenerator implements LicensePlateGenerator {
     @Override
     public String generate(String state) {
-        String plate = state ;
-        return null;
+        CenterLicensePlateGenerator generator = new CenterLicensePlateGenerator();
+        return generator.generate(state);
     }
 }
