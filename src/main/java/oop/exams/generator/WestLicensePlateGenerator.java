@@ -1,15 +1,31 @@
 package oop.exams.generator;
 
+import oop.exams.exception.BadRegionException;
+
 import java.util.Random;
 
 public class WestLicensePlateGenerator implements LicensePlateGenerator {
     @Override
     public String generate(String state) {
-        Random ran=new Random(10);
-        int v1 = ran.nextInt(9)+1;
+        if(!validState(state)){
+            throw new BadRegionException("Allowed state codes: COL, JAL, NAY, SIN");
+        }
 
-        String plate = "2"+ v1 + state;
+        StringBuilder licensePlate=new StringBuilder("2");
+        Random random=new Random();
+        int i;
 
-        return plate;
+        licensePlate.append(random.nextInt(10));
+
+        licensePlate.append(state);
+
+        return licensePlate.toString();
+    }
+
+    private boolean validState(String state) {
+        return switch (state) {
+            case "COL", "JAL", "NAY", "SIN" -> true;
+            default -> false;
+        };
     }
 }
